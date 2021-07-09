@@ -11,6 +11,15 @@ The repo is to store the data extractor, which outputs the data InventoryManageE
 
 ## Usage
 
+```shell
+git clone https://github.com/Wu-Jingcheng/m5_data_extractor.git
+cd m5_data_extractor
+(unzip sales_train_evaluation.zip)
+(modify the config or just leave it there)
+python data_process.py
+(enter `yes` to acccept, here we go)
+```
+
 Please see the `data_process.py` for more details in comments at the `config` bar.
 
 The config here is essentially for filter the data and extract data.
