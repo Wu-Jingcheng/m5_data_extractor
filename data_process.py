@@ -18,15 +18,33 @@ parser.add_argument("--seed", type=int, default=1)
 args = parser.parse_args()
 seed(args.seed)
 
+'''
+The config here is essentially for filter the data and extract data
+Run the script and enter `yes` as input, data and inventory_config.py will be generated.
+Essentially, this script looks for items that meet the specified requirements,
+and extract a certain number (specified) of them to the test dataset.
+For the unpicked remainder, they goes to the train dataset.
+The directory will be like:
+|root
+|inventory_config.py
+--|data_patch
+----|test
+------|sku_selection.txt    (info that tells you what items are present here)
+------|store{i}.csv         (testing dataset)
+----|train
+------|sku_selection.txt
+------|store{i}.csv         (noted that training and testing datasets are different)
+'''
 # config here
-sales_mean_threshold = 0.5
-max_zero_cnt = 500
-max_nosale_cnt = 15
-sku_num = 50
+# you can modify config down here
+sales_mean_threshold = 0.5  # the min daily mean sale for picked items
+max_zero_cnt = 500          # the max no-sale days for picked items
+max_nosale_cnt = 15         # the max consecutive no-sale days for picked items
+sku_num = 50                # num of items in testing dataset
 # stores = None
-stores = ['CA_3']
-store_num = len(stores)
-avoid_items = [
+stores = ['CA_3']           # what store r u looking at, CA_{1~3} and TX_{1~2}, WI_{1~2}
+store_num = len(stores)     # how many stores in total
+avoid_items = [             # what items do you want to avoid
     # "FOODS_3_080",
     # "FOODS_3_228",
     # "HOBBIES_1_004",
@@ -34,12 +52,13 @@ avoid_items = [
     # "HOUSEHOLD_1_234",
     # "HOUSEHOLD_1_434",
 ]
-time_span = 1941
+time_span = 1941            # length of the dataset
 cats_all = ['FOODS', 'HOBBIES', 'HOUSEHOLD']
 # prices = [200, 300, 400, 500, 220, 330, 440, 550, 540, 250, 350, 450]
 # costs = [100, 180, 270, 390, 110, 220, 330, 440, 400, 120, 230, 300]
-costs = [randint(100, 300)//10*10 for _ in range(sku_num)]
-prices = [costs[i]+randint(100, 150)//10*10 for i in range(sku_num)]
+costs = [randint(100, 300)//10*10 for _ in range(sku_num)]              # costs for each item, randomized
+prices = [costs[i]+randint(100, 150)//10*10 for i in range(sku_num)]    # prices for each item, randomized
+# you can modify config up here
 # config here
 
 
